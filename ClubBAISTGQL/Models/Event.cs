@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ClubBAISTGQL.Models
 {
-    public class Membership
+    public class Event
     {
         [Key]
-        public long MembershipID { get; set; }
+        public long EventID { get; set; }
 
         [Required]
         public string Description { get; set; }
 
-        public ICollection<Member> Members { get; set; }
+        public ICollection<TeeTime> TeeTimes { get; set; }
     }
 }
