@@ -10,9 +10,14 @@ namespace ClubBAISTGQL.Models
         public long TeeTimeID { get; set; }
 
         [Required]
-        public long MembershipNumber { get; set; }
+        public long MemberNumber { get; set; }
 
-        // Still figuring out if Standing Tee Time should be connected here
-        // instead of being connected to TeeTime itself. 
+        public long? StandingTeeTimeID { get; set; }
+
+        public TeeTime TeeTime { get; set; }
+
+        public Member Member { get; set; }
+
+        public StandingTeeTime StandingTeeTime { get; set; }
     }
 }

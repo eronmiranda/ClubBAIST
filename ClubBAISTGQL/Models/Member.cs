@@ -7,7 +7,7 @@ namespace ClubBAISTGQL.Models
     public class Member
     {
         [Key]
-        public long MemberID { get; set; }
+        public long MemberNumber { get; set; }
 
         [Required]
         public string FirstName { get; set; }
