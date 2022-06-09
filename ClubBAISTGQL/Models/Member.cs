@@ -54,5 +54,7 @@ namespace ClubBAISTGQL.Models
         public long MembershipID { get; set; }
 
         public Membership Membership { get; set; }
+
+        public ICollection<MemberTeeTime> MemberTeeTimes { get; set; }
     }
 }
