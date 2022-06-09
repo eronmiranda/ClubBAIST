@@ -13,12 +13,10 @@ namespace ClubBAISTGQL.Models
         public DateTime DateTeeTime { get; set; }
 
         public int? CartsRequested { get; set; }
-
+        
         public long? StandingTeeTimeID { get; set; }
 
         public long? EventID { get; set; }
-
-        public StandingTeeTime StandingTeeTime { get; set; }
 
         public Event Event { get; set; }
 

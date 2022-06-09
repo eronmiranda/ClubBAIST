@@ -7,7 +7,7 @@ namespace ClubBAISTGQL.Models
     public class Member
     {
         [Key]
-        public long MemberID { get; set; }
+        public long MemberNumber { get; set; }
 
         [Required]
         public string FirstName { get; set; }
@@ -54,5 +54,7 @@ namespace ClubBAISTGQL.Models
         public long MembershipID { get; set; }
 
         public Membership Membership { get; set; }
+
+        public ICollection<MemberTeeTime> MemberTeeTimes { get; set; }
     }
 }

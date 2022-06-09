@@ -10,7 +10,6 @@ namespace ClubBAISTGQL.Models
         [Key]
         public long StandingTeeTimeID { get; set; }
 
-
         // Research for DateTime Range
         [Required]
         public DateTime StartDate { get; set; }
@@ -21,8 +20,6 @@ namespace ClubBAISTGQL.Models
         [Required]
         public DayOfWeek DayOfWeek { get; set; }
 
-        public ICollection<TeeTime> TeeTimes { get; set; }
-
-
+        public ICollection<MemberTeeTime> MemberTeeTimes { get; set; }
     }
 }
