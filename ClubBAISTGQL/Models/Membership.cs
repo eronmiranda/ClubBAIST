@@ -17,10 +17,9 @@ namespace ClubBAISTGQL.Models
         // Silver cannot play between 3:00 pm to 5:30 pm.
         // Bronze cannot play between 3:00pm to 6:00pm.
         // Copper cannot play at all.
-        public TimeSpan RestrictedPlayingTimeStart { get; set; }
-
-        public TimeSpan RestrictedPlayingTimeEnd { get; set; }
 
         public ICollection<Member> Members { get; set; }
+
+        public ICollection<RestrictedTime> RestrictedTimes { get; set; }
     }
 }

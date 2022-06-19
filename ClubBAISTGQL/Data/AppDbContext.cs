@@ -16,6 +16,7 @@ namespace ClubBAISTGQL.Data
     public DbSet<MemberTeeTime> MemberTeeTimes { get; set; }
     public DbSet<StandingTeeTime> StandingTeeTimes { get; set; }
     public DbSet<TeeTime> TeeTimes { get; set; }
+    public DbSet<RestrictedTime> RestrictedTimes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,53 +25,67 @@ namespace ClubBAISTGQL.Data
         .Entity<MemberTeeTime>()
         .HasKey(p => new { p.MemberNumber, p.TeeTimeID });
       
-      // TeeTime to MemberTeeTime
+      // TeeTime to MemberTeeTime.
       modelBuilder
         .Entity<TeeTime>()
         .HasMany(p => p.MemberTeeTimes)
         .WithOne(p => p.TeeTime!)
         .HasForeignKey(p => p.TeeTimeID);
 
-      // Member to MemberTeeTime
+      // Member to MemberTeeTime.
       modelBuilder
         .Entity<Member>()
         .HasMany(p => p.MemberTeeTimes)
         .WithOne(p => p.Member!)
         .HasForeignKey(p => p.MemberNumber);
 
-      // StandingTeeTime to MemberTeeTime
+      // StandingTeeTime to MemberTeeTime.
       modelBuilder
         .Entity<StandingTeeTime>()
         .HasMany(p => p.MemberTeeTimes)
         .WithOne(p => p.StandingTeeTime!)
         .HasForeignKey(p => p.StandingTeeTimeID);
 
-      // TeeTime to Events.
+      // TeeTime to Event.
       modelBuilder
         .Entity<TeeTime>()
         .HasOne(p => p.Event)
         .WithMany(p => p.TeeTimes)
         .HasForeignKey(p => p.EventID);
     
-      // Event to TeeTime
+      // Event to TeeTime.
       modelBuilder
         .Entity<Event>()
         .HasMany(p => p.TeeTimes)
         .WithOne(p => p.Event!)
         .HasForeignKey(p => p.EventID);
 
-      // Member to Membership
+      // Member to Membership.
       modelBuilder
         .Entity<Member>()
         .HasOne(p => p.Membership)
         .WithMany(p => p.Members)
-        .HasForeignKey(p => p.MemberNumber);
+        .HasForeignKey(p => p.MembershipID);
 
-      // Membership to Member
+      // Membership to Member.
       modelBuilder
         .Entity<Membership>()
         .HasMany(p => p.Members)
         .WithOne(p => p.Membership!)
+        .HasForeignKey(p => p.MembershipID);
+
+      // Membership to RestrictedTime
+      modelBuilder
+        .Entity<Membership>()
+        .HasMany(p => p.RestrictedTimes)
+        .WithOne(p => p.Membership!)
+        .HasForeignKey(p => p.MembershipID);
+
+      // RestrictedTime to Membership
+      modelBuilder
+        .Entity<RestrictedTime>()
+        .HasOne(p => p.Membership)
+        .WithMany(p => p.RestrictedTimes)
         .HasForeignKey(p => p.MembershipID);
     }
   }
