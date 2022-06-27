@@ -10,6 +10,8 @@ namespace ClubBAISTGQL.GraphQL
     public class Query
     {
         [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<Membership> GetMembership([ScopedService] AppDbContext context)
         {
             return context.Memberships;
