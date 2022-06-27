@@ -10,7 +10,10 @@ namespace Query_Builder_test.Models
     private string _pathName;
 
     public string EntityName { get; set; }
+
     public string FileName { get; set; }
+
+    public List<string> Entities { get; set; }
 
     public Query(string FileName, string EntityName)
     {
@@ -21,6 +24,12 @@ namespace Query_Builder_test.Models
       _values = GetValues();
     }
 
+    public Query(List<string> Entities)
+    {
+      this.Entities = Entities;
+    }
+
+
     // Gets the combined directory name and the file name provided.
     private string GetPath()
     {
@@ -30,6 +39,7 @@ namespace Query_Builder_test.Models
       {
         directoryName = directoryName.Remove((directoryName.Length - (@"/bin/Debug/net6.0").Length));
       }
+
       return Path.Combine(directoryName, FileName);
     }
 
@@ -56,10 +66,35 @@ namespace Query_Builder_test.Models
       return stringBuilder.ToString();
     }
 
-    public string GetQueryString()
+    public string GetInsertQueryString()
     {
       return $"INSERT INTO {EntityName} ({_columns}) VALUES \n{_values};";
     }
 
+    public string GetResetQueryString()
+    {
+      StringBuilder resetSeedQuery = new StringBuilder();
+      foreach (string entity in Entities)
+      {
+        if (entity != "MemberTeeTimes")
+        {
+          resetSeedQuery.Append($"DBCC CHECKIDENT('{entity}', RESEED, 0);\n");
+        }
+      }
+
+      return resetSeedQuery.ToString();
+    }
+
+    public string GetDeleteAllQueryString()
+    {
+      StringBuilder deleteQuery = new StringBuilder();
+
+      foreach (string entity in Entities)
+      {
+        deleteQuery.Append($"DELETE FROM {entity};\n");
+      }
+
+      return deleteQuery.ToString();
+    }
   }
 }

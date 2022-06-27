@@ -1,4 +1,5 @@
 using System.Data.SqlClient;
+using System.Text;
 
 namespace Query_Builder_test.Models
 {
@@ -18,6 +19,20 @@ namespace Query_Builder_test.Models
       sqlConnection.Open();
       SqlCommand sqlCommand = new SqlCommand(_queryString, sqlConnection);
       sqlCommand.ExecuteNonQuery();
+      sqlConnection.Close();
+    }
+
+    public void ResetDB(string deleteQuery, string resetSeedQuery)
+    {
+      SqlConnection sqlConnection = new SqlConnection(CONNECTION_STRING);
+      sqlConnection.Open();
+
+      SqlCommand sqlCommand = new SqlCommand(deleteQuery, sqlConnection);
+      sqlCommand.ExecuteNonQuery();
+
+      sqlCommand = new SqlCommand(resetSeedQuery, sqlConnection);
+      sqlCommand.ExecuteNonQuery();
+
       sqlConnection.Close();
     }
   }
