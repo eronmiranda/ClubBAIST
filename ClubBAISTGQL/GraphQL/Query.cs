@@ -16,5 +16,53 @@ namespace ClubBAISTGQL.GraphQL
         {
             return context.Memberships;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<Member> GetMember([ScopedService] AppDbContext context)
+        {
+            return context.Members;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<TeeTime> GetTeeTime([ScopedService] AppDbContext context)
+        {
+            return context.TeeTimes;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<Event> GetEvent([ScopedService] AppDbContext context)
+        {
+            return context.Events;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<StandingTeeTime> GetStandingTeeTime([ScopedService] AppDbContext context)
+        {
+            return context.StandingTeeTimes;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<MemberTeeTime> GetMemberTeeTime([ScopedService] AppDbContext context)
+        {
+            return context.MemberTeeTimes;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<RestrictedTime> GetRestrictedTime([ScopedService] AppDbContext context)
+        {
+            return context.RestrictedTimes;
+        }
     }
 }

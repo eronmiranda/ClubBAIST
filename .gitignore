@@ -355,4 +355,3 @@ ClubBAISTGQL/appsettings.Development.json
 ClubBAISTGQL/.vscode/launch.json
 ClubBAISTGQL/.vscode/tasks.json
 *.cache
-*.editorconfig
