@@ -2,6 +2,8 @@ using ClubBAISTGQL.Data;
 using ClubBAISTGQL.GraphQL;
 using Microsoft.EntityFrameworkCore;
 using GraphQL.Server.Ui.Voyager;
+using ClubBAISTGQL.GraphQL.MembershipType;
+using ClubBAISTGQL.GraphQL.MemberType;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +12,11 @@ builder.Services.
 
 builder.Services
   .AddGraphQLServer()
-  .RegisterDbContext<AppDbContext>(DbContextKind.Pooled)
   .AddQueryType<Query>()
+  .AddType<MembershipType>()
+  .AddType<MemberType>()
   .AddFiltering()
   .AddSorting()
-  .AddProjections()
   .AddErrorFilter<GraphQLErrorFilter>();
 
 var app = builder.Build();
@@ -26,6 +28,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.MapGet("/", () => "Welcome to Club BAIST GraphQL project");
+
+app.UseWebSockets();
 
 app.UseRouting();
 

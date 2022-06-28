@@ -10,7 +10,6 @@ namespace ClubBAISTGQL.GraphQL
   public class Query
   {
     [UseDbContext(typeof(AppDbContext))]
-    [UseProjection]
     [UseFiltering]
     [UseSorting]
     public IQueryable<Membership> GetMembership([ScopedService] AppDbContext context)
@@ -19,7 +18,6 @@ namespace ClubBAISTGQL.GraphQL
     }
 
     [UseDbContext(typeof(AppDbContext))]
-    [UseProjection]
     [UseFiltering]
     [UseSorting]
     public IQueryable<Member> GetMember([ScopedService] AppDbContext context)
@@ -60,7 +58,6 @@ namespace ClubBAISTGQL.GraphQL
     }
 
     [UseDbContext(typeof(AppDbContext))]
-    [UseProjection]
     [UseFiltering]
     [UseSorting]
     public IQueryable<RestrictedTime> GetRestrictedTime([ScopedService] AppDbContext context)
