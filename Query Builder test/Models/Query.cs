@@ -35,7 +35,7 @@ namespace Query_Builder_test.Models
     {
       string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       // Removes if its in the development
-      if (directoryName.Contains(@"/bin/Debug/net6.0"))
+      if (directoryName.Contains(@"/bin/Debug/net6.0") || directoryName.Contains(@"\bin\Debug\net6.0"))
       {
         directoryName = directoryName.Remove((directoryName.Length - (@"/bin/Debug/net6.0").Length));
       }
@@ -46,20 +46,24 @@ namespace Query_Builder_test.Models
     // Only reads the first line of the formatted text file.
     private string GetColumns()
     {
-      string columns = File.ReadLines(_pathName).First().Trim();
-
-      if (!String.IsNullOrEmpty(columns))
-        return columns;
-
-      return String.Empty;
+      string columns;
+      try
+      {
+        columns = File.ReadLines(_pathName).First().Trim();
+      }
+      catch
+      {
+        columns = String.Empty;
+      }
+      return columns;
     }
 
     private string GetValues()
     {
       StringBuilder stringBuilder = new StringBuilder();
-      List<string> dataList = File.ReadLines(_pathName).ToList();
+      List<string> dataList = File.ReadLines(_pathName)?.ToList();
 
-      if (dataList != null)
+      if (dataList.Count > 0)
       {
         dataList.RemoveAt(0);
         foreach (string line in dataList)
@@ -76,7 +80,11 @@ namespace Query_Builder_test.Models
 
     public string GetInsertQueryString()
     {
-      return $"INSERT INTO {EntityName} ({_columns}) VALUES \n{_values};";
+      string insertQueryString = String.Empty;
+      if (!String.IsNullOrEmpty(_columns) && !String.IsNullOrEmpty(_values))
+        insertQueryString = $"INSERT INTO {EntityName} ({_columns}) VALUES \n{_values};";
+
+      return insertQueryString;
     }
 
     public string GetResetQueryString()

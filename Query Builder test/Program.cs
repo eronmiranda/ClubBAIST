@@ -18,12 +18,43 @@ Query resetDBQuery = new Query(Entities);
 string deleteAllQueryString = resetDBQuery.GetDeleteAllQueryString();
 string resetSeedQueryString = resetDBQuery.GetResetQueryString();
 
-Query insertQuery = new Query(@"Data/Memberships.txt", "Memberships");
-string insertQueryString = insertQuery.GetInsertQueryString();
 
-Queries queries = new Queries();
+try
+{
+  Queries queries = new Queries();
 
-queries.ExecuteQuery(deleteAllQueryString);
-queries.ExecuteQuery(resetSeedQueryString);
+  queries.ExecuteQuery(deleteAllQueryString);
+  queries.ExecuteQuery(resetSeedQueryString);
 
-queries.ExecuteQuery(insertQueryString);
+  Console.WriteLine("Successfully reset the DB!");
+}
+catch (System.Exception ex)
+{
+  Console.WriteLine(ex.Message.ToString());
+}
+
+try
+{
+  LoadData(Entities);
+  Console.WriteLine("Successfully loaded the data!");
+}
+catch (System.Exception ex)
+{
+  Console.WriteLine(ex.Message.ToString());
+}
+
+
+void LoadData(List<string> Entities)
+{
+  Queries queries = new Queries();
+
+  foreach (string entity in Entities)
+  {
+    string fileName = $@"Data\{entity}.txt";
+
+    Query query = new Query(fileName, entity);
+
+    if (!String.IsNullOrEmpty(query.GetInsertQueryString()))
+      queries.ExecuteQuery(query.GetInsertQueryString());
+  }
+}
