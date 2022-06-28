@@ -1,5 +1,6 @@
 ﻿using Query_Builder_test.Models;
 
+// Order of deletions based on their dependencies.
 List<string> Entities = new List<string>()
                         {
                           "MemberTeeTimes",
@@ -11,13 +12,20 @@ List<string> Entities = new List<string>()
                           "Events"
                         };
 
+// Different order because of dependencies.
+List<string> OrderedEntities = new List<string>()
+                              {
+                                "Memberships",
+                                "RestrictedTimes",
+                                "Events"
+                              };
+
 Query resetDBQuery = new Query(Entities);
 
 // Works perfectly if the entities are already exist.
 // This will give you errors if an entity does not exist.
 string deleteAllQueryString = resetDBQuery.GetDeleteAllQueryString();
 string resetSeedQueryString = resetDBQuery.GetResetQueryString();
-
 
 try
 {
@@ -35,7 +43,7 @@ catch (System.Exception ex)
 
 try
 {
-  LoadData(Entities);
+  LoadData(OrderedEntities);
   Console.WriteLine("Successfully loaded the data!");
 }
 catch (System.Exception ex)
