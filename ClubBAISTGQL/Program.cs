@@ -13,14 +13,15 @@ builder.Services
   .AddQueryType<Query>()
   .AddFiltering()
   .AddSorting()
+  .AddProjections()
   .AddErrorFilter<GraphQLErrorFilter>();
 
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+  app.UseExceptionHandler("/Error");
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  app.UseHsts();
 }
 
 app.MapGet("/", () => "Welcome to Club BAIST GraphQL project");
