@@ -46,22 +46,30 @@ namespace Query_Builder_test.Models
     // Only reads the first line of the formatted text file.
     private string GetColumns()
     {
-      return File.ReadLines(_pathName).First();
+      string columns = File.ReadLines(_pathName).First().Trim();
+
+      if (!String.IsNullOrEmpty(columns))
+        return columns;
+
+      return String.Empty;
     }
 
     private string GetValues()
     {
       StringBuilder stringBuilder = new StringBuilder();
-
       List<string> dataList = File.ReadLines(_pathName).ToList();
-      dataList.RemoveAt(0);
-      foreach (string line in dataList)
+
+      if (dataList != null)
       {
-        // /n is added for readability when printed.
-        stringBuilder.Append($"({line}),\n");
+        dataList.RemoveAt(0);
+        foreach (string line in dataList)
+        {
+          // /n is added for readability when printed.
+          stringBuilder.Append($"({line}),\n");
+        }
+        // Removes /n and extra comma at the end.
+        stringBuilder.Length -= 2;
       }
-      // Removes /n and extra comma at the end.
-      stringBuilder.Length -= 2;
 
       return stringBuilder.ToString();
     }

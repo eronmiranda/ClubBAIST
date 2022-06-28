@@ -1,39 +1,26 @@
 using System.Data.SqlClient;
-using System.Text;
 
 namespace Query_Builder_test.Models
 {
   public class Queries
   {
     private const string CONNECTION_STRING = "Server=localhost,1433;Database=ClubBAISTDB;User Id=sa;Password=EMirandaPassword!";
-    private string _queryString;
 
-    public Queries(string queryString)
+    private SqlConnection _sqlConnection;
+
+    public Queries()
     {
-      this._queryString = queryString;
+      _sqlConnection = new SqlConnection(CONNECTION_STRING);
     }
 
-    public void ExecuteQuery()
+    public void ExecuteQuery(string queryString)
     {
-      SqlConnection sqlConnection = new SqlConnection(CONNECTION_STRING);
-      sqlConnection.Open();
-      SqlCommand sqlCommand = new SqlCommand(_queryString, sqlConnection);
-      sqlCommand.ExecuteNonQuery();
-      sqlConnection.Close();
-    }
+      _sqlConnection.Open();
 
-    public void ResetDB(string deleteQuery, string resetSeedQuery)
-    {
-      SqlConnection sqlConnection = new SqlConnection(CONNECTION_STRING);
-      sqlConnection.Open();
-
-      SqlCommand sqlCommand = new SqlCommand(deleteQuery, sqlConnection);
+      SqlCommand sqlCommand = new SqlCommand(queryString, _sqlConnection);
       sqlCommand.ExecuteNonQuery();
 
-      sqlCommand = new SqlCommand(resetSeedQuery, sqlConnection);
-      sqlCommand.ExecuteNonQuery();
-
-      sqlConnection.Close();
+      _sqlConnection.Close();
     }
   }
 }

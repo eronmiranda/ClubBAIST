@@ -1,5 +1,4 @@
-﻿using static System.Console;
-using Query_Builder_test.Models;
+﻿using Query_Builder_test.Models;
 
 List<string> Entities = new List<string>()
                         {
@@ -13,10 +12,18 @@ List<string> Entities = new List<string>()
                         };
 
 Query resetDBQuery = new Query(Entities);
-string resetQuery = resetDBQuery.GetResetQueryString();
-string deleteAllQuery = resetDBQuery.GetDeleteAllQueryString();
+
+// Works perfectly if the entities are already exist.
+// This will give you errors if an entity does not exist.
+string deleteAllQueryString = resetDBQuery.GetDeleteAllQueryString();
+string resetSeedQueryString = resetDBQuery.GetResetQueryString();
 
 Query insertQuery = new Query(@"Data/Memberships.txt", "Memberships");
-Queries queries = new Queries(insertQuery.GetInsertQueryString());
-queries.ResetDB(deleteAllQuery, resetQuery);
-queries.ExecuteQuery();
+string insertQueryString = insertQuery.GetInsertQueryString();
+
+Queries queries = new Queries();
+
+queries.ExecuteQuery(deleteAllQueryString);
+queries.ExecuteQuery(resetSeedQueryString);
+
+queries.ExecuteQuery(insertQueryString);
