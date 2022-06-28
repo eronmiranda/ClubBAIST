@@ -1,2 +1,7 @@
 # ClubBAIST-GQL
-Converting my Software Engineering 1 and 2: Club BAIST project in ReactJS, .NET Core 5.0, and GraphQL.
+Converting my Software Engineering 1 and 2 project: Club BAIST.
+
+Tech Stack:
+- Front-end: ReactJS
+- Back-end: .NET Core 6.0, GraphQL
+- Database: Microsoft SQL (relational db)
