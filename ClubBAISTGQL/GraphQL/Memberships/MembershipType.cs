@@ -11,11 +11,11 @@ namespace ClubBAISTGQL.GraphQL.Memberships
 
       descriptor
         .Field(m => m.MembershipID)
-        .Description("Represents the unique ID for the Membership.");
+        .Description("Represents the unique ID of a Membership.");
 
       descriptor
           .Field(m => m.Description)
-          .Description("Represents the name of the Membership.");
+          .Description("Describes the name of the Membership.");
 
       descriptor
           .Field(m => m.Members)

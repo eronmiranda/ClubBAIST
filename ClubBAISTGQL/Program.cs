@@ -17,7 +17,7 @@ builder.Services
   .AddType<MemberType>()
   .AddFiltering()
   .AddSorting();
-// .AddErrorFilter<GraphQLErrorFilter>();
+// .AddErrorFilter<GraphQLErrorFilter>(); // Used for testing purposes only.
 
 var app = builder.Build();
 
