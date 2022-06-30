@@ -1,7 +1,7 @@
 using ClubBAISTGQL.Data;
 using ClubBAISTGQL.Models;
 
-namespace ClubBAISTGQL.GraphQL.MemberType
+namespace ClubBAISTGQL.GraphQL.Members
 {
   public class MemberType : ObjectType<Member>
   {
@@ -18,7 +18,7 @@ namespace ClubBAISTGQL.GraphQL.MemberType
 
     private class Resolvers
     {
-      public Membership GetMembership(Member member, [ScopedService] AppDbContext context)
+      public Membership GetMembership([Parent] Member member, [ScopedService] AppDbContext context)
       {
         return context.Memberships.FirstOrDefault(m => m.MembershipID == member.MembershipID);
       }

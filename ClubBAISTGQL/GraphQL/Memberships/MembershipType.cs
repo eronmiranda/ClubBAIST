@@ -1,9 +1,7 @@
 using ClubBAISTGQL.Data;
 using ClubBAISTGQL.Models;
-using HotChocolate;
-using HotChocolate.Types;
 
-namespace ClubBAISTGQL.GraphQL.MembershipType
+namespace ClubBAISTGQL.GraphQL.Memberships
 {
   public class MembershipType : ObjectType<Membership>
   {
@@ -28,7 +26,7 @@ namespace ClubBAISTGQL.GraphQL.MembershipType
 
     private class Resolvers
     {
-      public IQueryable<Member> GetMembers(Membership membership, [ScopedService] AppDbContext context)
+      public IQueryable<Member> GetMembers([Parent] Membership membership, [ScopedService] AppDbContext context)
       {
         return context.Members.Where(x => x.MembershipID == membership.MembershipID);
       }
