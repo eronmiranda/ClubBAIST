@@ -24,8 +24,6 @@ namespace ClubBAISTGQL.GraphQL.StandingTeeTimes
           .Field(s => s.DayOfWeek)
           .Description("The specific day of the week requested.");
 
-
-
       descriptor
         .Field(s => s.MemberTeeTimes)
         .ResolveWith<Resolvers>(s => s.GetMemberTeeTimes(default!, default!))

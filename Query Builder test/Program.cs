@@ -17,7 +17,8 @@ List<string> OrderedEntities = new List<string>()
                               {
                                 "Memberships",
                                 "RestrictedTimes",
-                                "Events"
+                                "Events",
+                                "Members"
                               };
 
 Query resetDBQuery = new Query(Entities);
