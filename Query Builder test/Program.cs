@@ -12,15 +12,6 @@ List<string> Entities = new List<string>()
                           "Events"
                         };
 
-// Different order because of dependencies.
-List<string> OrderedEntities = new List<string>()
-                              {
-                                "Memberships",
-                                "RestrictedTimes",
-                                "Events",
-                                "Members"
-                              };
-
 Query resetDBQuery = new Query(Entities);
 
 // Works perfectly if the entities are already exist.
@@ -42,9 +33,12 @@ catch (System.Exception ex)
   Console.WriteLine(ex.Message.ToString());
 }
 
+// Reversed the entity list to prevent errors from inserting non-dependent entity first.
+Entities.Reverse();
+
 try
 {
-  LoadData(OrderedEntities);
+  LoadData(Entities);
   Console.WriteLine("Successfully loaded the data!");
 }
 catch (System.Exception ex)
