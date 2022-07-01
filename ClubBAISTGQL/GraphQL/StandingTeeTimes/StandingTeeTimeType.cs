@@ -10,7 +10,7 @@ namespace ClubBAISTGQL.GraphQL.StandingTeeTimes
       descriptor.Description("Represents any Standing Tee Time requested by a member.");
       descriptor
         .Field(s => s.StandingTeeTimeID)
-        .Description("Represents the unique identified of a Standing Tee Time");
+        .Description("Represents the unique identifier of a Standing Tee Time");
 
       descriptor
         .Field(s => s.StartDate)
