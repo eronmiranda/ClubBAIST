@@ -22,13 +22,24 @@ namespace ClubBAISTGQL.GraphQL.Memberships
           .ResolveWith<Resolvers>(m => m.GetMembers(default!, default!))
           .UseDbContext<AppDbContext>()
           .Description("List of members that have subscribed in this membership level.");
+
+      descriptor
+        .Field(m => m.RestrictedTimes)
+        .ResolveWith<Resolvers>(m => m.GetRestrictedTimes(default!, default!))
+        .UseDbContext<AppDbContext>()
+        .Description("List of restricted time for reserving tee time in this membership level.");
     }
 
     private class Resolvers
     {
       public IQueryable<Member> GetMembers([Parent] Membership membership, [ScopedService] AppDbContext context)
       {
-        return context.Members.Where(x => x.MembershipID == membership.MembershipID);
+        return context.Members.Where(m => m.MembershipID == membership.MembershipID);
+      }
+
+      public IQueryable<RestrictedTime> GetRestrictedTimes([Parent] Membership membership, [ScopedService] AppDbContext context)
+      {
+        return context.RestrictedTimes.Where(r => r.MembershipID == membership.MembershipID);
       }
     }
   }
