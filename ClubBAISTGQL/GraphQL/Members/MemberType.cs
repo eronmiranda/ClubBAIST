@@ -13,7 +13,7 @@ namespace ClubBAISTGQL.GraphQL.Members
         .Field(m => m.Membership)
         .ResolveWith<Resolvers>(m => m.GetMembership(default!, default!))
         .UseDbContext<AppDbContext>()
-        .Description("Represents the type of membership the member has.");
+        .Description("Represents the level of membership the member has.");
     }
 
     private class Resolvers
