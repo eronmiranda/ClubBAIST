@@ -1,6 +1,6 @@
-﻿using static System.Console;
-using Query_Builder_test.Models;
+﻿using Query_Builder_test.Models;
 
+// Order of deletions based on their dependencies.
 List<string> Entities = new List<string>()
                         {
                           "MemberTeeTimes",
@@ -13,10 +13,51 @@ List<string> Entities = new List<string>()
                         };
 
 Query resetDBQuery = new Query(Entities);
-string resetQuery = resetDBQuery.GetResetQueryString();
-string deleteAllQuery = resetDBQuery.GetDeleteAllQueryString();
 
-Query insertQuery = new Query(@"Data/Memberships.txt", "Memberships");
-Queries queries = new Queries(insertQuery.GetInsertQueryString());
-queries.ResetDB(deleteAllQuery, resetQuery);
-queries.ExecuteQuery();
+// Works perfectly if the entities are already exist.
+// This will give you errors if an entity does not exist.
+string deleteAllQueryString = resetDBQuery.GetDeleteAllQueryString();
+string resetSeedQueryString = resetDBQuery.GetResetQueryString();
+
+try
+{
+  Queries queries = new Queries();
+
+  queries.ExecuteQuery(deleteAllQueryString);
+  queries.ExecuteQuery(resetSeedQueryString);
+
+  Console.WriteLine("Successfully reset the DB!");
+}
+catch (System.Exception ex)
+{
+  Console.WriteLine(ex.Message.ToString());
+}
+
+// Reversed the entity list to prevent errors from inserting non-dependent entity first.
+Entities.Reverse();
+
+try
+{
+  LoadData(Entities);
+  Console.WriteLine("Successfully loaded the data!");
+}
+catch (System.Exception ex)
+{
+  Console.WriteLine(ex.Message.ToString());
+}
+
+
+void LoadData(List<string> Entities)
+{
+  Queries queries = new Queries();
+
+  foreach (string entity in Entities)
+  {
+    string fileName = $@"Data\{entity}.txt";
+
+    Query query = new Query(fileName, entity);
+
+    if (!String.IsNullOrEmpty(query.GetInsertQueryString()))
+      queries.ExecuteQuery(query.GetInsertQueryString());
+  }
+}

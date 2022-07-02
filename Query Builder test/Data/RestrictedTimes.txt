@@ -1,0 +1,7 @@
+MembershipID, RestrictedDay, RestrictedTimeStart, RestrictedTimeEnd
+2,'Weekday','15:00:00','17:30:00'
+2,'Weeekend','00:00:00','11:00:00' 
+3,'Weekday','15:00:00','17:30:00'
+3,'Weeekend','00:00:00','13:00:00' 
+4,'Weekday','00:00:00','23:59:00'
+4,'Weeekend','00:00:00','23:59:00' 

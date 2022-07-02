@@ -24,7 +24,7 @@ namespace ClubBAISTGQL.Data
       modelBuilder
         .Entity<MemberTeeTime>()
         .HasKey(p => new { p.MemberNumber, p.TeeTimeID });
-      
+
       // TeeTime to MemberTeeTime.
       modelBuilder
         .Entity<TeeTime>()
@@ -52,7 +52,7 @@ namespace ClubBAISTGQL.Data
         .HasOne(p => p.Event)
         .WithMany(p => p.TeeTimes)
         .HasForeignKey(p => p.EventID);
-    
+
       // Event to TeeTime.
       modelBuilder
         .Entity<Event>()
@@ -87,6 +87,8 @@ namespace ClubBAISTGQL.Data
         .HasOne(p => p.Membership)
         .WithMany(p => p.RestrictedTimes)
         .HasForeignKey(p => p.MembershipID);
+
+      base.OnModelCreating(modelBuilder);
     }
   }
 }

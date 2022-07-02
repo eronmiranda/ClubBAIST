@@ -1,0 +1,4 @@
+FirstName,LastName,Address,PostalCode,PhoneNumber,AltPhoneNumber,Email,DateOfBirth,Occupation,CompanyName,CompanyAddress,CompanyPostalCode,CompanyPhoneNumber,MembershipID
+'Eron','Miranda','NW Edmonton','T5T0T1','(780) 123-4567',null,'eronmiranda@mail.com','1994-10-01','Developer','NAIT','Edmonton,AB','T2S5O2','(123) 456-7890',1
+'Morty','Doodle','NW Calgary','T7T2P3','(780) 765-1234',null,'mortydoggo@gmail.com','1991-03-03','Business Analyst','Google','Calgary,AB','T3Z6P2','(254) 987-7890',2
+'Kali','TheDane','NW Red Deer','T8W2Q2','(587) 936-1225','(587) 955-1379','kalithedane@hotmail.com','1963-04-09','Project Manager','Netflix','Red Deer,AB','T8W6T2','(587) 452-2253',3
