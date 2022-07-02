@@ -1,4 +1,5 @@
-﻿using Query_Builder_test.Models;
+﻿using System.Runtime.InteropServices;
+using Query_Builder_test.Models;
 
 // Order of deletions based on their dependencies.
 List<string> Entities = new List<string>()
@@ -51,13 +52,30 @@ void LoadData(List<string> Entities)
 {
   Queries queries = new Queries();
 
+  string folderName = GetFolderNameByOS();
+
   foreach (string entity in Entities)
   {
-    string fileName = $@"Data\{entity}.txt";
+    // Only accepts txt files for now.
+    string fileName = $"{folderName}{entity}.txt";
 
     Query query = new Query(fileName, entity);
 
     if (!String.IsNullOrEmpty(query.GetInsertQueryString()))
       queries.ExecuteQuery(query.GetInsertQueryString());
+    else
+      Console.WriteLine();
   }
+}
+
+string GetFolderNameByOS()
+{
+  string folderName;
+
+  if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    folderName = @"Data\";
+  else
+    folderName = @"Data/";
+
+  return folderName;
 }
