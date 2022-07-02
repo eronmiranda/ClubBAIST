@@ -8,7 +8,7 @@ using ClubBAISTGQL.GraphQL.Memberships;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.
-  AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+  AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 
 builder.Services
   .AddGraphQLServer()
