@@ -1,4 +1,17 @@
 namespace ClubBAISTGQL.GraphQL.Members
 {
-  public record AddMemberInput();
+  public record AddMemberInput(string FirstName,
+                               string LastName,
+                               string Address,
+                               string PostalCode,
+                               string PhoneNumber,
+                               string AltPhoneNumber,
+                               string Email,
+                               string DateOfBirth,
+                               string Occupation,
+                               string CompanyName,
+                               string CompanyAddress,
+                               string CompanyPostalCode,
+                               string CompanyPhoneNumber,
+                               long MembershipID);
 }

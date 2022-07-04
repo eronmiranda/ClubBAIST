@@ -64,7 +64,7 @@ void LoadData(List<string> Entities)
     if (!String.IsNullOrEmpty(query.GetInsertQueryString()))
       queries.ExecuteQuery(query.GetInsertQueryString());
     else
-      Console.WriteLine();
+      Console.WriteLine($"WARNING: {entity} is empty.");
   }
 }
 
