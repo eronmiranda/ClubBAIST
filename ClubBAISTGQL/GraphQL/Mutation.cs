@@ -1,5 +1,6 @@
 using ClubBAISTGQL.Data;
 using ClubBAISTGQL.GraphQL.Events;
+using ClubBAISTGQL.GraphQL.Members;
 using ClubBAISTGQL.GraphQL.Memberships;
 using ClubBAISTGQL.GraphQL.RestrictedTimes;
 using ClubBAISTGQL.Models;
@@ -54,6 +55,33 @@ namespace ClubBAISTGQL.GraphQL
       await context.SaveChangesAsync();
 
       return new AddRestrictedTimePayload(restrictedTime);
+    }
+
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<AddMemberPayload> AddMemberAsync(AddMemberInput input, [ScopedService] AppDbContext context)
+    {
+      Member member = new Member
+      {
+        FirstName = input.FirstName,
+        LastName = input.LastName,
+        Address = input.Address,
+        PostalCode = input.PostalCode,
+        PhoneNumber = input.PhoneNumber,
+        AltPhoneNumber = String.IsNullOrEmpty(input.AltPhoneNumber) ? null : input.AltPhoneNumber,
+        Email = input.Email,
+        DateOfBirth = DateTime.Parse(input.DateOfBirth),
+        Occupation = input.Occupation,
+        CompanyName = input.CompanyName,
+        CompanyAddress = input.CompanyAddress,
+        CompanyPostalCode = input.CompanyPostalCode,
+        CompanyPhoneNumber = input.CompanyPhoneNumber,
+        MembershipID = input.MembershipID
+      };
+
+      context.Members.Add(member);
+      await context.SaveChangesAsync();
+
+      return new AddMemberPayload(member);
     }
   }
 }
