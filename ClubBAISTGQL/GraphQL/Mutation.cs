@@ -1,6 +1,7 @@
 using ClubBAISTGQL.Data;
 using ClubBAISTGQL.GraphQL.Events;
 using ClubBAISTGQL.GraphQL.Memberships;
+using ClubBAISTGQL.GraphQL.RestrictedTimes;
 using ClubBAISTGQL.Models;
 
 namespace ClubBAISTGQL.GraphQL
@@ -33,6 +34,23 @@ namespace ClubBAISTGQL.GraphQL
       await context.SaveChangesAsync();
 
       return new AddEventPayload(eventObj);
+    }
+
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<AddRestrictedTimePayload> AddRestrictedTimeAsync(AddRestrictedTimeInput input, [ScopedService] AppDbContext context)
+    {
+      RestrictedTime restrictedTime = new RestrictedTime
+      {
+        RestrictedDay = input.RestrictedDay,
+        RestrictedTimeStart = TimeSpan.Parse(input.RestrictedTimeStart),
+        RestrictedTimeEnd = TimeSpan.Parse(input.RestrictedTimeEnd),
+        MembershipID = input.MembershipID
+      };
+
+      context.RestrictedTimes.Add(restrictedTime);
+      await context.SaveChangesAsync();
+
+      return new AddRestrictedTimePayload(restrictedTime);
     }
   }
 }
