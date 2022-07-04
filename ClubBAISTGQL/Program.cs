@@ -13,6 +13,7 @@ builder.Services.
 builder.Services
   .AddGraphQLServer()
   .AddQueryType<Query>()
+  .AddMutationType<Mutation>()
   .AddType<MembershipType>()
   .AddType<MemberType>()
   .AddFiltering()
