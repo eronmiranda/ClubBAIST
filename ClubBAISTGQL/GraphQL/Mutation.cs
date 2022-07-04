@@ -8,6 +8,7 @@ namespace ClubBAISTGQL.GraphQL
 {
   public class Mutation
   {
+    // Add Membership
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddMembershipPayload> AddMembershipAsync(AddMembershipInput input, [ScopedService] AppDbContext context)
     {
@@ -22,6 +23,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddMembershipPayload(membership);
     }
 
+    // Add Event
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddEventPayload> AddEventAsync(AddEventInput input, [ScopedService] AppDbContext context)
     {
@@ -36,6 +38,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddEventPayload(eventObj);
     }
 
+    // Add RestrictedTime
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddRestrictedTimePayload> AddRestrictedTimeAsync(AddRestrictedTimeInput input, [ScopedService] AppDbContext context)
     {
