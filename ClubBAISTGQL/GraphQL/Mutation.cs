@@ -3,6 +3,7 @@ using ClubBAISTGQL.GraphQL.Events;
 using ClubBAISTGQL.GraphQL.Members;
 using ClubBAISTGQL.GraphQL.Memberships;
 using ClubBAISTGQL.GraphQL.RestrictedTimes;
+using ClubBAISTGQL.GraphQL.TeeTimes;
 using ClubBAISTGQL.Models;
 
 namespace ClubBAISTGQL.GraphQL
@@ -82,6 +83,22 @@ namespace ClubBAISTGQL.GraphQL
       await context.SaveChangesAsync();
 
       return new AddMemberPayload(member);
+    }
+
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input, [ScopedService] AppDbContext context)
+    {
+      TeeTime teeTime = new TeeTime
+      {
+        DateTeeTime = DateTime.Parse(input.DateTeeTime),
+        CartsRequested = input.CartsRequested,
+        EventID = input.EventID
+      };
+
+      context.TeeTimes.Add(teeTime);
+      await context.SaveChangesAsync();
+
+      return new AddTeeTimePayload(teeTime);
     }
   }
 }
