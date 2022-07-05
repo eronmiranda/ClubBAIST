@@ -14,15 +14,15 @@ namespace ClubBAISTGQL.GraphQL.StandingTeeTimes
 
       descriptor
         .Field(s => s.StartDate)
-        .Description("The beginning date of the requested Standing Tee Time");
+        .Description("The beginning date of the requested Standing Tee Time. yyyy/MM/dd format");
 
       descriptor
           .Field(s => s.EndDate)
-          .Description("The end date of the requested Standing Tee Time");
+          .Description("The end date of the requested Standing Tee Time. yyyy/MM/dd format");
 
       descriptor
           .Field(s => s.DayOfWeek)
-          .Description("The specific day of the week requested.");
+          .Description("The specific day of the week requested. Accepts integer to determine dayOfWeek.");
 
       descriptor
         .Field(s => s.MemberTeeTimes)

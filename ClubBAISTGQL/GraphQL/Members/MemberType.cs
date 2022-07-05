@@ -9,6 +9,8 @@ namespace ClubBAISTGQL.GraphQL.Members
     {
       descriptor.Description("Represents any golfers that have membership in the club.");
 
+      // Missing documentation on each field.
+
       descriptor
         .Field(m => m.Membership)
         .ResolveWith<Resolvers>(m => m.GetMembership(default!, default!))
