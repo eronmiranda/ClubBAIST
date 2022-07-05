@@ -18,8 +18,8 @@ namespace ClubBAISTGQL.Models
     public DateTime EndDate { get; set; }
 
     // Add this later if needed.
-    // [Required]
-    // public TimeSpan RequestedTeeTime { get; set; }
+    [Required]
+    public TimeSpan RequestedTeeTime { get; set; }
 
     [Required]
     public DayOfWeek DayOfWeek { get; set; }
