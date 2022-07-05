@@ -4,6 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using GraphQL.Server.Ui.Voyager;
 using ClubBAISTGQL.GraphQL.Members;
 using ClubBAISTGQL.GraphQL.Memberships;
+using ClubBAISTGQL.GraphQL.MemberTeeTimes;
+using ClubBAISTGQL.GraphQL.Events;
+using ClubBAISTGQL.GraphQL.RestrictedTimes;
+using ClubBAISTGQL.GraphQL.StandingTeeTimes;
+using ClubBAISTGQL.GraphQL.TeeTimes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +19,13 @@ builder.Services
   .AddGraphQLServer()
   .AddQueryType<Query>()
   .AddMutationType<Mutation>()
-  .AddType<MembershipType>()
+  .AddType<EventType>()
   .AddType<MemberType>()
+  .AddType<MembershipType>()
+  .AddType<MemberTeeTimeType>()
+  .AddType<RestrictedTimeType>()
+  .AddType<StandingTeeTimeType>()
+  .AddType<TeeTimeType>()
   .AddFiltering()
   .AddSorting()
   .AddErrorFilter<GraphQLErrorFilter>(); // Used for testing purposes only.

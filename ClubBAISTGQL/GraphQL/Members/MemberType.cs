@@ -9,11 +9,19 @@ namespace ClubBAISTGQL.GraphQL.Members
     {
       descriptor.Description("Represents any golfers that have membership in the club.");
 
+      // Missing documentation on each field.
+
       descriptor
         .Field(m => m.Membership)
         .ResolveWith<Resolvers>(m => m.GetMembership(default!, default!))
         .UseDbContext<AppDbContext>()
         .Description("Represents the level of membership the member has.");
+
+      descriptor
+        .Field(m => m.MemberTeeTimes)
+        .ResolveWith<Resolvers>(m => m.GetMemberTeeTimes(default!, default!))
+        .UseDbContext<AppDbContext>()
+        .Description("List of Member and Tee Time relationships.");
     }
 
     private class Resolvers
@@ -21,6 +29,11 @@ namespace ClubBAISTGQL.GraphQL.Members
       public Membership GetMembership([Parent] Member member, [ScopedService] AppDbContext context)
       {
         return context.Memberships.FirstOrDefault(m => m.MembershipID == member.MembershipID);
+      }
+
+      public IQueryable<MemberTeeTime> GetMemberTeeTimes([Parent] Member member, [ScopedService] AppDbContext context)
+      {
+        return context.MemberTeeTimes.Where(m => m.MemberNumber == member.MemberNumber);
       }
     }
   }

@@ -15,7 +15,7 @@ namespace ClubBAISTGQL.GraphQL.TeeTimes
 
       descriptor
         .Field(t => t.DateTeeTime)
-        .Description("Describes the specific date and time of Tee Time.");
+        .Description("Describes the specific date and time of Tee Time. yyyy/MM/dd format"");
 
       descriptor
         .Field(t => t.CartsRequested)

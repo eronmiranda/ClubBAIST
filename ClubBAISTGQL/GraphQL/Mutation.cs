@@ -2,7 +2,10 @@ using ClubBAISTGQL.Data;
 using ClubBAISTGQL.GraphQL.Events;
 using ClubBAISTGQL.GraphQL.Members;
 using ClubBAISTGQL.GraphQL.Memberships;
+using ClubBAISTGQL.GraphQL.MemberTeeTimes;
 using ClubBAISTGQL.GraphQL.RestrictedTimes;
+using ClubBAISTGQL.GraphQL.StandingTeeTimes;
+using ClubBAISTGQL.GraphQL.TeeTimes;
 using ClubBAISTGQL.Models;
 
 namespace ClubBAISTGQL.GraphQL
@@ -82,6 +85,54 @@ namespace ClubBAISTGQL.GraphQL
       await context.SaveChangesAsync();
 
       return new AddMemberPayload(member);
+    }
+
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input, [ScopedService] AppDbContext context)
+    {
+      TeeTime teeTime = new TeeTime
+      {
+        DateTeeTime = DateTime.Parse(input.DateTeeTime),
+        CartsRequested = input.CartsRequested,
+        EventID = input.EventID
+      };
+
+      context.TeeTimes.Add(teeTime);
+      await context.SaveChangesAsync();
+
+      return new AddTeeTimePayload(teeTime);
+    }
+
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<AddMemberTeeTimePayload> AddMemberTeeTimeAsync(AddMemberTeeTimeInput input, [ScopedService] AppDbContext context)
+    {
+      MemberTeeTime memberTeeTime = new MemberTeeTime
+      {
+        TeeTimeID = input.TeeTimeID,
+        MemberNumber = input.MemberNumber,
+        StandingTeeTimeID = input.StandingTeeTimeID
+      };
+
+      context.MemberTeeTimes.Add(memberTeeTime);
+      await context.SaveChangesAsync();
+
+      return new AddMemberTeeTimePayload(memberTeeTime);
+    }
+
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<AddStandingTeeTimePayload> AddStandingTeeTimeAsync(AddStandingTeeTimeInput input, [ScopedService] AppDbContext context)
+    {
+      StandingTeeTime standingTeeTime = new StandingTeeTime
+      {
+        StartDate = DateTime.Parse(input.StartDate),
+        EndDate = DateTime.Parse(input.EndDate),
+        DayOfWeek = (DayOfWeek)input.DayOfWeek
+      };
+
+      context.StandingTeeTimes.Add(standingTeeTime);
+      await context.SaveChangesAsync();
+
+      return new AddStandingTeeTimePayload(standingTeeTime);
     }
   }
 }
