@@ -25,6 +25,10 @@ namespace ClubBAISTGQL.GraphQL.StandingTeeTimes
           .Description("The specific day of the week requested. Accepts integer to determine dayOfWeek.");
 
       descriptor
+        .Field(s => s.RequestedTeeTime)
+        .Description("The specific time requested for every week. +-30mins.");
+
+      descriptor
         .Field(s => s.MemberTeeTimes)
         .ResolveWith<Resolvers>(s => s.GetMemberTeeTimes(default!, default!))
         .UseDbContext<AppDbContext>()

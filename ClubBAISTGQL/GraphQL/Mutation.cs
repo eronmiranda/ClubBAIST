@@ -126,7 +126,8 @@ namespace ClubBAISTGQL.GraphQL
       {
         StartDate = DateTime.Parse(input.StartDate),
         EndDate = DateTime.Parse(input.EndDate),
-        DayOfWeek = (DayOfWeek)input.DayOfWeek
+        DayOfWeek = (DayOfWeek)input.DayOfWeek,
+        RequestedTeeTime = TimeSpan.Parse(input.RequestedTeeTime)
       };
 
       context.StandingTeeTimes.Add(standingTeeTime);
