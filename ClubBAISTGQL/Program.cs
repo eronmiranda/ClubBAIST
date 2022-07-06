@@ -19,6 +19,7 @@ builder.Services
   .AddGraphQLServer()
   .AddQueryType<Query>()
   .AddMutationType<Mutation>()
+  .AddSubscriptionType<Subscription>()
   .AddType<EventType>()
   .AddType<MemberType>()
   .AddType<MembershipType>()
@@ -28,6 +29,7 @@ builder.Services
   .AddType<TeeTimeType>()
   .AddFiltering()
   .AddSorting()
+  .AddInMemorySubscriptions()
   .AddErrorFilter<GraphQLErrorFilter>(); // Used for testing purposes only.
 
 var app = builder.Build();

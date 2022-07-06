@@ -7,6 +7,7 @@ using ClubBAISTGQL.GraphQL.RestrictedTimes;
 using ClubBAISTGQL.GraphQL.StandingTeeTimes;
 using ClubBAISTGQL.GraphQL.TeeTimes;
 using ClubBAISTGQL.Models;
+using HotChocolate.Subscriptions;
 
 namespace ClubBAISTGQL.GraphQL
 {
@@ -88,7 +89,10 @@ namespace ClubBAISTGQL.GraphQL
     }
 
     [UseDbContext(typeof(AppDbContext))]
-    public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input, [ScopedService] AppDbContext context)
+    public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input,
+                                                         [ScopedService] AppDbContext context,
+                                                         [Service] ITopicEventSender eventSender,
+                                                         CancellationToken cancellationToken)
     {
       TeeTime teeTime = new TeeTime
       {
@@ -98,7 +102,9 @@ namespace ClubBAISTGQL.GraphQL
       };
 
       context.TeeTimes.Add(teeTime);
-      await context.SaveChangesAsync();
+      await context.SaveChangesAsync(cancellationToken);
+
+      await eventSender.SendAsync(nameof(Subscription.OnTeeTimeAdded), teeTime, cancellationToken);
 
       return new AddTeeTimePayload(teeTime);
     }
