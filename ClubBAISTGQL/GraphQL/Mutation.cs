@@ -45,6 +45,19 @@ namespace ClubBAISTGQL.GraphQL
       return new UpdateMembershipPayload(existingMembership);
     }
 
+    //Delete Membership.
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<DeleteMembershipPayload> DeleteMembershipAsync(DeleteMembershipInput input,
+                                                                     [ScopedService] AppDbContext context)
+    {
+      Membership existingMembership = await context.Memberships.FindAsync(input.MembershipID);
+
+      context.Memberships.Remove(existingMembership);
+      await context.SaveChangesAsync();
+
+      return new DeleteMembershipPayload(existingMembership);
+    }
+
     // Add Event
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddEventPayload> AddEventAsync(AddEventInput input, [ScopedService] AppDbContext context)
