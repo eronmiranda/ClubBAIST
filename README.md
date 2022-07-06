@@ -1,9 +1,10 @@
-# ClubBAIST-GQL
+# Club BAIST - rebuilding and refactoring software engineering 1 and 2 project.
 
+A different approach to gain deeper understanding on GraphQL, ReactJS, Typescript, and more.
 Converting Software Engineering 1 and 2 project: Club BAIST.
 
 Tech Stack:
-- Front-end: ReactJS
+- Front-end: ReactJS, Typescript
 - Back-end: .NET Core 6.0
 - API: GraphQL
 - Database: Microsoft SQL
