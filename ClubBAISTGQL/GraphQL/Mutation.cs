@@ -61,6 +61,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddRestrictedTimePayload(restrictedTime);
     }
 
+    // Add Member
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddMemberPayload> AddMemberAsync(AddMemberInput input, [ScopedService] AppDbContext context)
     {
@@ -88,6 +89,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddMemberPayload(member);
     }
 
+    // Add Tee Time
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input,
                                                          [ScopedService] AppDbContext context,
@@ -109,6 +111,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddTeeTimePayload(teeTime);
     }
 
+    // Add Member-Tee Time relationship.
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddMemberTeeTimePayload> AddMemberTeeTimeAsync(AddMemberTeeTimeInput input, [ScopedService] AppDbContext context)
     {
@@ -125,6 +128,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddMemberTeeTimePayload(memberTeeTime);
     }
 
+    // Add Standing Tee Time.
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddStandingTeeTimePayload> AddStandingTeeTimeAsync(AddStandingTeeTimeInput input, [ScopedService] AppDbContext context)
     {
