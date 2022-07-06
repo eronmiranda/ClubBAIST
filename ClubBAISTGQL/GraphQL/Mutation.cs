@@ -15,7 +15,8 @@ namespace ClubBAISTGQL.GraphQL
   {
     // Add Membership
     [UseDbContext(typeof(AppDbContext))]
-    public async Task<AddMembershipPayload> AddMembershipAsync(AddMembershipInput input, [ScopedService] AppDbContext context)
+    public async Task<AddMembershipPayload> AddMembershipAsync(AddMembershipInput input,
+                                                               [ScopedService] AppDbContext context)
     {
       Membership membership = new Membership
       {
@@ -26,6 +27,22 @@ namespace ClubBAISTGQL.GraphQL
       await context.SaveChangesAsync();
 
       return new AddMembershipPayload(membership);
+    }
+
+    // Update Membership
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<UpdateMembershipPayload> UpdateMembershipAsync(UpdateMembershipInput input,
+                                                                     [ScopedService] AppDbContext context)
+    {
+      Membership existingMembership = await context.Memberships.FindAsync(input.MembershipID);
+
+      // Update new description for an existing membership.
+      existingMembership.Description = input.Description;
+
+      context.Memberships.Update(existingMembership);
+      await context.SaveChangesAsync();
+
+      return new UpdateMembershipPayload(existingMembership);
     }
 
     // Add Event
