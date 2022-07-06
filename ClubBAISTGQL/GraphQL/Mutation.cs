@@ -15,7 +15,8 @@ namespace ClubBAISTGQL.GraphQL
   {
     // Add Membership
     [UseDbContext(typeof(AppDbContext))]
-    public async Task<AddMembershipPayload> AddMembershipAsync(AddMembershipInput input, [ScopedService] AppDbContext context)
+    public async Task<AddMembershipPayload> AddMembershipAsync(AddMembershipInput input,
+                                                               [ScopedService] AppDbContext context)
     {
       Membership membership = new Membership
       {
@@ -26,6 +27,35 @@ namespace ClubBAISTGQL.GraphQL
       await context.SaveChangesAsync();
 
       return new AddMembershipPayload(membership);
+    }
+
+    // Update Membership
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<UpdateMembershipPayload> UpdateMembershipAsync(UpdateMembershipInput input,
+                                                                     [ScopedService] AppDbContext context)
+    {
+      Membership existingMembership = await context.Memberships.FindAsync(input.MembershipID);
+
+      // Update new description for an existing membership.
+      existingMembership.Description = input.Description;
+
+      context.Memberships.Update(existingMembership);
+      await context.SaveChangesAsync();
+
+      return new UpdateMembershipPayload(existingMembership);
+    }
+
+    //Delete Membership.
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<DeleteMembershipPayload> DeleteMembershipAsync(DeleteMembershipInput input,
+                                                                     [ScopedService] AppDbContext context)
+    {
+      Membership existingMembership = await context.Memberships.FindAsync(input.MembershipID);
+
+      context.Memberships.Remove(existingMembership);
+      await context.SaveChangesAsync();
+
+      return new DeleteMembershipPayload(existingMembership);
     }
 
     // Add Event
@@ -61,6 +91,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddRestrictedTimePayload(restrictedTime);
     }
 
+    // Add Member
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddMemberPayload> AddMemberAsync(AddMemberInput input, [ScopedService] AppDbContext context)
     {
@@ -88,6 +119,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddMemberPayload(member);
     }
 
+    // Add Tee Time
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input,
                                                          [ScopedService] AppDbContext context,
@@ -109,6 +141,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddTeeTimePayload(teeTime);
     }
 
+    // Add Member-Tee Time relationship.
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddMemberTeeTimePayload> AddMemberTeeTimeAsync(AddMemberTeeTimeInput input, [ScopedService] AppDbContext context)
     {
@@ -125,6 +158,7 @@ namespace ClubBAISTGQL.GraphQL
       return new AddMemberTeeTimePayload(memberTeeTime);
     }
 
+    // Add Standing Tee Time.
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddStandingTeeTimePayload> AddStandingTeeTimeAsync(AddStandingTeeTimeInput input, [ScopedService] AppDbContext context)
     {
