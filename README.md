@@ -1,7 +1,7 @@
-# Club BAIST - rebuilding and refactoring software engineering 1 and 2 project.
+# Club BAIST
 
 A different approach to gain deeper understanding on GraphQL, ReactJS, Typescript, and more.
-Converting Software Engineering 1 and 2 project: Club BAIST.
+Rebuilding and refactoring software engineering 1 and 2 project.
 
 Tech Stack:
 - Front-end: ReactJS, Typescript
