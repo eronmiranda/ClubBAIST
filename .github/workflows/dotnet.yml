@@ -17,11 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
-    - name: Change directory to solution
-      run: cd ClubBAISTGQL
     - name: Restore dependencies
-      run: dotnet restore
+      run: cd ClubBAISTGQL && dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: cd ClubBAISTGQL && dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: cd ClubBAISTGQL && dotnet test --no-build --verbosity normal
