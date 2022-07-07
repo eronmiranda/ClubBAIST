@@ -73,6 +73,35 @@ namespace ClubBAISTGQL.GraphQL
       return new AddEventPayload(eventObj);
     }
 
+    // Update Event
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<UpdateEventPayload> UpdateEventAsync(UpdateEventInput input, [ScopedService] AppDbContext context)
+    {
+      Event existingEvent = new Event
+      {
+        EventID = input.EventID,
+        Description = input.Description
+      };
+
+      context.Events.Update(existingEvent);
+      await context.SaveChangesAsync();
+
+      return new UpdateEventPayload(existingEvent);
+    }
+
+    // Delete Event
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<DeleteEventPayload> DeleteEventAsync(DeleteEventInput input,
+                                                          [ScopedService] AppDbContext context)
+    {
+      Event existingEvent = await context.Events.FindAsync(input.EventID);
+
+      context.Events.Remove(existingEvent);
+      await context.SaveChangesAsync();
+
+      return new DeleteEventPayload(existingEvent);
+    }
+
     // Add RestrictedTime
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddRestrictedTimePayload> AddRestrictedTimeAsync(AddRestrictedTimeInput input, [ScopedService] AppDbContext context)
