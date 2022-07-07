@@ -1,28 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/emiranda/Documents/GitHub/ClubBAIST/ClubBAISTGQL/ClubBAISTGQL/ClubBAISTGQL.csproj": {}
+    "C:\\Users\\Eron\\Documents\\Git\\BAIST-Capstone-Project\\ClubBAIST-GQL\\ClubBAISTGQL\\ClubBAISTGQL.csproj": {}
   },
   "projects": {
-    "/Users/emiranda/Documents/GitHub/ClubBAIST/ClubBAISTGQL/ClubBAISTGQL/ClubBAISTGQL.csproj": {
+    "C:\\Users\\Eron\\Documents\\Git\\BAIST-Capstone-Project\\ClubBAIST-GQL\\ClubBAISTGQL\\ClubBAISTGQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/emiranda/Documents/GitHub/ClubBAIST/ClubBAISTGQL/ClubBAISTGQL/ClubBAISTGQL.csproj",
+        "projectUniqueName": "C:\\Users\\Eron\\Documents\\Git\\BAIST-Capstone-Project\\ClubBAIST-GQL\\ClubBAISTGQL\\ClubBAISTGQL.csproj",
         "projectName": "ClubBAISTGQL",
-        "projectPath": "/Users/emiranda/Documents/GitHub/ClubBAIST/ClubBAISTGQL/ClubBAISTGQL/ClubBAISTGQL.csproj",
-        "packagesPath": "/Users/emiranda/.nuget/packages/",
-        "outputPath": "/Users/emiranda/Documents/GitHub/ClubBAIST/ClubBAISTGQL/ClubBAISTGQL/obj/",
+        "projectPath": "C:\\Users\\Eron\\Documents\\Git\\BAIST-Capstone-Project\\ClubBAIST-GQL\\ClubBAISTGQL\\ClubBAISTGQL.csproj",
+        "packagesPath": "C:\\Users\\Eron\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Eron\\Documents\\Git\\BAIST-Capstone-Project\\ClubBAIST-GQL\\ClubBAISTGQL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "/Users/emiranda/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Eron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
