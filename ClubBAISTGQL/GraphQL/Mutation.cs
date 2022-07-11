@@ -185,6 +185,49 @@ namespace ClubBAISTGQL.GraphQL
       return new AddMemberPayload(member);
     }
 
+    // Update Member.
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<UpdateMemberPayload> UpdateMemberAsync(UpdateMemberInput input,
+                                                             [ScopedService] AppDbContext context)
+    {
+      Member existingMember = new Member
+      {
+        MemberNumber = input.MemberNumber,
+        FirstName = input.FirstName,
+        LastName = input.LastName,
+        Address = input.Address,
+        PostalCode = input.PostalCode,
+        PhoneNumber = input.PhoneNumber,
+        AltPhoneNumber = String.IsNullOrEmpty(input.AltPhoneNumber) ? null : input.AltPhoneNumber,
+        Email = input.Email,
+        DateOfBirth = DateTime.Parse(input.DateOfBirth),
+        Occupation = input.Occupation,
+        CompanyName = input.CompanyName,
+        CompanyAddress = input.CompanyAddress,
+        CompanyPostalCode = input.CompanyPostalCode,
+        CompanyPhoneNumber = input.CompanyPhoneNumber,
+        MembershipID = input.MembershipID
+      };
+
+      context.Members.Update(existingMember);
+      await context.SaveChangesAsync();
+
+      return new UpdateMemberPayload(existingMember);
+    }
+
+    // Delete Member
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<DeleteMemberPayload> DeleteMemberAsync(DeleteMemberInput input,
+                                                             [ScopedService] AppDbContext context)
+    {
+      Member existingMember = await context.Members.FindAsync(input.MemberNumber);
+
+      context.Members.Remove(existingMember);
+      await context.SaveChangesAsync();
+
+      return new DeleteMemberPayload(existingMember);
+    }
+
     // Add Tee Time
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input,
