@@ -16,7 +16,7 @@ namespace ClubBAISTGQL.GraphQL
     // Add Membership
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddMembershipPayload> AddMembershipAsync(AddMembershipInput input,
-                                                              [ScopedService] AppDbContext context)
+                                                               [ScopedService] AppDbContext context)
     {
       Membership membership = new Membership
       {
@@ -32,7 +32,7 @@ namespace ClubBAISTGQL.GraphQL
     // Update Membership
     [UseDbContext(typeof(AppDbContext))]
     public async Task<UpdateMembershipPayload> UpdateMembershipAsync(UpdateMembershipInput input,
-                                                                    [ScopedService] AppDbContext context)
+                                                                     [ScopedService] AppDbContext context)
     {
       Membership existingMembership = await context.Memberships.FindAsync(input.MembershipID);
 
@@ -48,7 +48,7 @@ namespace ClubBAISTGQL.GraphQL
     //Delete Membership.
     [UseDbContext(typeof(AppDbContext))]
     public async Task<DeleteMembershipPayload> DeleteMembershipAsync(DeleteMembershipInput input,
-                                                                    [ScopedService] AppDbContext context)
+                                                                     [ScopedService] AppDbContext context)
     {
       Membership existingMembership = await context.Memberships.FindAsync(input.MembershipID);
 
@@ -94,7 +94,7 @@ namespace ClubBAISTGQL.GraphQL
     // Delete Event
     [UseDbContext(typeof(AppDbContext))]
     public async Task<DeleteEventPayload> DeleteEventAsync(DeleteEventInput input,
-                                                          [ScopedService] AppDbContext context)
+                                                           [ScopedService] AppDbContext context)
     {
       Event existingEvent = await context.Events.FindAsync(input.EventID);
 
@@ -104,7 +104,7 @@ namespace ClubBAISTGQL.GraphQL
       return new DeleteEventPayload(existingEvent);
     }
 
-    // Add RestrictedTime
+    // Add Restricted Time
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddRestrictedTimePayload> AddRestrictedTimeAsync(AddRestrictedTimeInput input,
                                                                        [ScopedService] AppDbContext context)
@@ -121,6 +121,39 @@ namespace ClubBAISTGQL.GraphQL
       await context.SaveChangesAsync();
 
       return new AddRestrictedTimePayload(restrictedTime);
+    }
+
+    // Update Restricted Time
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<UpdateRestrictedTimePayload> UpdateRestrictedTimeAsync(UpdateRestrictedTimeInput input,
+                                                                             [ScopedService] AppDbContext context)
+    {
+      RestrictedTime existingRestrictedTime = new RestrictedTime
+      {
+        RestrictedTimeID = input.RestrictedTimeID,
+        RestrictedDay = input.RestrictedDay,
+        RestrictedTimeStart = TimeSpan.Parse(input.RestrictedTimeStart),
+        RestrictedTimeEnd = TimeSpan.Parse(input.RestrictedTimeEnd),
+        MembershipID = input.MembershipID
+      };
+
+      context.RestrictedTimes.Update(existingRestrictedTime);
+      await context.SaveChangesAsync();
+
+      return new UpdateRestrictedTimePayload(existingRestrictedTime);
+    }
+
+    // Delete Restricted Time
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<DeleteRestrictedTimePayload> DeleteRestrictedTimeAsync(DeleteRestrictedTimeInput input,
+                                                                             [ScopedService] AppDbContext context)
+    {
+      RestrictedTime existingRestrictedTime = await context.RestrictedTimes.FindAsync(input.RestrictedTimeID);
+
+      context.RestrictedTimes.Remove(existingRestrictedTime);
+      await context.SaveChangesAsync();
+
+      return new DeleteRestrictedTimePayload(existingRestrictedTime);
     }
 
     // Add Member
@@ -155,9 +188,9 @@ namespace ClubBAISTGQL.GraphQL
     // Add Tee Time
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddTeeTimePayload> AddTeeTimeAsync(AddTeeTimeInput input,
-                                                        [ScopedService] AppDbContext context,
-                                                        [Service] ITopicEventSender eventSender,
-                                                        CancellationToken cancellationToken)
+                                                         [ScopedService] AppDbContext context,
+                                                         [Service] ITopicEventSender eventSender,
+                                                         CancellationToken cancellationToken)
     {
       TeeTime teeTime = new TeeTime
       {
