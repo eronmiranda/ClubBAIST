@@ -250,6 +250,38 @@ namespace ClubBAISTGQL.GraphQL
       return new AddTeeTimePayload(teeTime);
     }
 
+    // Update Tee Time
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<UpdateTeeTimePayload> UpdateTeeTimeAsync(UpdateTeeTimeInput input,
+                                                               [ScopedService] AppDbContext context)
+    {
+      TeeTime existingTeeTime = new TeeTime
+      {
+        TeeTimeID = input.TeeTimeID,
+        DateTeeTime = DateTime.Parse(input.DateTeeTime),
+        CartsRequested = input.CartsRequested,
+        EventID = input.EventID
+      };
+
+      context.TeeTimes.Update(existingTeeTime);
+      await context.SaveChangesAsync();
+
+      return new UpdateTeeTimePayload(existingTeeTime);
+    }
+
+    // Delete Tee Time
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<DeleteTeeTimePayload> DeleteTeeTimeAsync(DeleteTeeTimeInput input,
+                                                               [ScopedService] AppDbContext context)
+    {
+      TeeTime existingTeeTime = await context.TeeTimes.FindAsync(input.TeeTimeID);
+
+      context.TeeTimes.Remove(existingTeeTime);
+      await context.SaveChangesAsync();
+
+      return new DeleteTeeTimePayload(existingTeeTime);
+    }
+
     // Add Member-Tee Time relationship.
     [UseDbContext(typeof(AppDbContext))]
     public async Task<AddMemberTeeTimePayload> AddMemberTeeTimeAsync(AddMemberTeeTimeInput input,
