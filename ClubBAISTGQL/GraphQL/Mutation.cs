@@ -331,5 +331,38 @@ namespace ClubBAISTGQL.GraphQL
 
       return new AddStandingTeeTimePayload(standingTeeTime);
     }
+
+    // Update Standing Tee Time
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<UpdateStandingTeeTimePayload> UpdateStandingTeeTimeAsync(UpdateStandingTeeTimeInput input,
+                                                                               [ScopedService] AppDbContext context)
+    {
+      StandingTeeTime existingStandingTeeTime = new StandingTeeTime
+      {
+        StandingTeeTimeID = input.StandingTeeTimeID,
+        StartDate = DateTime.Parse(input.StartDate),
+        EndDate = DateTime.Parse(input.EndDate),
+        DayOfWeek = (DayOfWeek)input.DayOfWeek,
+        RequestedTeeTime = TimeSpan.Parse(input.RequestedTeeTime)
+      };
+
+      context.StandingTeeTimes.Update(existingStandingTeeTime);
+      await context.SaveChangesAsync();
+
+      return new UpdateStandingTeeTimePayload(existingStandingTeeTime);
+    }
+
+    // Delete Standing Tee Time
+    [UseDbContext(typeof(AppDbContext))]
+    public async Task<DeleteStandingTeeTimePayload> DeleteStandingTeeTimeAsync(DeleteStandingTeeTimeInput input,
+                                                                           [ScopedService] AppDbContext context)
+    {
+      StandingTeeTime existingStandingTeeTime = await context.StandingTeeTimes.FindAsync(input.StandingTeeTimeID);
+
+      context.StandingTeeTimes.Remove(existingStandingTeeTime);
+      await context.SaveChangesAsync();
+
+      return new DeleteStandingTeeTimePayload(existingStandingTeeTime);
+    }
   }
 }
