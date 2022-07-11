@@ -4,11 +4,10 @@ A different approach to gain deeper understanding on GraphQL, ReactJS, Typescrip
 Rebuilding and refactoring software engineering 1 and 2 project.
 
 Tech Stack:
-- Front-end: ReactJS, Typescript
-- Back-end: .NET Core 6.0
+- Front-end: ReactJS, Typescript, HTML, CSS
+- Back-end: .NET Core 6.0, Hot Chocolate
 - API: GraphQL
 - Data Storage: Microsoft SQL
-- Other tools: Hot Chocolate
 
 ## What is Club BAIST?
 
