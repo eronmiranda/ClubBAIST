@@ -7,7 +7,7 @@ Tech Stack:
 - Front-end: ReactJS, Typescript
 - Back-end: .NET Core 6.0
 - API: GraphQL
-- Database: Microsoft SQL
+- Data Storage: Microsoft SQL
 - Other tools: Hot Chocolate
 
 ## What is Club BAIST?
