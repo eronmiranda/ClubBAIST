@@ -35,9 +35,14 @@ namespace Query_Builder_test.Models
     {
       string directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       // Removes if its in the development
-      if (directoryName.Contains(@"/bin/Debug/net6.0") || directoryName.Contains(@"\bin\Debug\net6.0"))
+      if (directoryName.Contains(@"/bin/Debug/net6.0"))
       {
         directoryName = directoryName.Remove((directoryName.Length - (@"/bin/Debug/net6.0").Length));
+      }
+      else if (directoryName.Contains(@"\bin\Debug\net6.0"))
+      {
+
+        directoryName = directoryName.Remove((directoryName.Length - (@"\bin\Debug\net6.0").Length));
       }
 
       return Path.Combine(directoryName, FileName);
