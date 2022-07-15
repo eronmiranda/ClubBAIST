@@ -1,6 +1,8 @@
-export interface MemberTeeTime
+export interface RestrictedTeeTime
 {
-  TeeTimeID: bigint,
-  MemberNumber: bigint,
-  StandingTeeTimeID?: bigint
+  RestrictedTimeID: bigint,
+  RestrictedDate: string,
+  RestrictedTimeStart: string,
+  RestrictedTimeEnd: string,
+  MembershipID: bigint
 }
