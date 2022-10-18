@@ -9,7 +9,8 @@ namespace ClubBAISTGQL.Data
     {
 
     }
-
+    
+    // Use to access a DbSet or list of an entity.
     public DbSet<Event> Events { get; set; }
     public DbSet<Member> Members { get; set; }
     public DbSet<Membership> Memberships { get; set; }
@@ -74,14 +75,14 @@ namespace ClubBAISTGQL.Data
         .WithOne(p => p.Membership!)
         .HasForeignKey(p => p.MembershipID);
 
-      // Membership to RestrictedTime
+      // Membership to RestrictedTime.
       modelBuilder
         .Entity<Membership>()
         .HasMany(p => p.RestrictedTimes)
         .WithOne(p => p.Membership!)
         .HasForeignKey(p => p.MembershipID);
 
-      // RestrictedTime to Membership
+      // RestrictedTime to Membership.
       modelBuilder
         .Entity<RestrictedTime>()
         .HasOne(p => p.Membership)
